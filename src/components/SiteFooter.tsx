@@ -5,9 +5,9 @@ import logoImage from "@/assets/logo.jpg";
 
 export function SiteFooter() {
   return (
-    <footer className="bg-slate-950 text-slate-100 py-16 text-left">
+    <footer className="bg-slate-950 text-slate-100 py-12 text-left">
       <div className="mx-auto max-w-7xl px-8">
-        <div className="grid gap-12 lg:grid-cols-3 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20 text-left">
           <div className="space-y-6 text-left">
             <div className="flex items-center gap-3">
               <img
@@ -19,12 +19,15 @@ export function SiteFooter() {
               />
               <div>
                 <div className="font-display text-2xl">Life Care H</div>
-                <div className="text-[10px] tracking-[0.35em] mt-1 uppercase text-slate-400">
+                {/* <div className="text-[10px] tracking-[0.35em] mt-1 uppercase text-slate-400">
                   Odisha
-                </div>
+                </div> */}
               </div>
             </div>
-            <p className="max-w-md text-sm leading-relaxed text-slate-300">
+            <h3 className="font-display text-base text-white mb-3">
+              Empowering Communities Since 2002
+            </h3>
+            <p className="text-sm leading-relaxed text-slate-300">
               A grassroots social organization since 2002, empowering rural and marginalized
               communities across Odisha through health, education, livelihoods and environmental
               action.
@@ -36,7 +39,7 @@ export function SiteFooter() {
                   href="https://facebook.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 bg-slate-900 text-slate-300 transition hover:border-primary hover:text-primary"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-800 bg-slate-900 text-slate-300 transition duration-300 hover:-translate-y-1 hover:border-primary hover:text-primary"
                 >
                   <Facebook className="h-4 w-4" />
                 </a>
@@ -44,7 +47,7 @@ export function SiteFooter() {
                   href="https://instagram.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 bg-slate-900 text-slate-300 transition hover:border-primary hover:text-primary"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-800 bg-slate-900 text-slate-300 transition duration-300 hover:-translate-y-1 hover:border-primary hover:text-primary"
                 >
                   <Instagram className="h-4 w-4" />
                 </a>
@@ -52,7 +55,7 @@ export function SiteFooter() {
                   href="https://wa.me/+919778038181"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 bg-slate-900 text-slate-300 transition hover:border-primary hover:text-primary"
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-800 bg-slate-900 text-slate-300 transition duration-300 hover:-translate-y-1 hover:border-primary hover:text-primary"
                 >
                   <FaWhatsapp className="h-4 w-4" />
                 </a>
@@ -61,25 +64,39 @@ export function SiteFooter() {
           </div>
 
           <div className="text-left">
-            <p className="eyebrow text-slate-500 mb-4">Quick Links</p>
+            <p className="eyebrow text-slate-500 mb-2">Quick Links</p>
+            <div className="w-12 h-px bg-primary mb-5"></div>
             <div className="space-y-3 text-sm text-slate-300">
-              <Link to="/about" className="block transition hover:text-primary">
+              <Link
+                to="/about"
+                className="block transition duration-300 hover:text-primary hover:translate-x-1"
+              >
                 About Us
               </Link>
-              <Link to="/programs" className="block transition hover:text-primary">
+              <Link
+                to="/programs"
+                className="block transition duration-300 hover:text-primary hover:translate-x-1"
+              >
                 Programs
               </Link>
-              <Link to="/impact" className="block transition hover:text-primary">
+              <Link
+                to="/impact"
+                className="block transition duration-300 hover:text-primary hover:translate-x-1"
+              >
                 Impact
               </Link>
-              <Link to="/events" className="block transition hover:text-primary">
+              <Link
+                to="/events"
+                className="block transition duration-300 hover:text-primary hover:translate-x-1"
+              >
                 Events
               </Link>
             </div>
           </div>
 
           <div className="text-left">
-            <p className="eyebrow text-slate-500 mb-4">Contact</p>
+            <p className="eyebrow text-slate-500 mb-2">Contact</p>
+            <div className="w-12 h-px bg-primary mb-5"></div>
             <div className="space-y-3 text-sm text-slate-300 leading-relaxed">
               <p>lifecaretalcher@gmail.com</p>
               <p>Secretary: Chandan Kumar Amanta</p>
@@ -89,8 +106,18 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-slate-800 pt-6 text-slate-500 text-xs sm:flex sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} Life Care H. All rights reserved.</p>
+        <div className="mt-8 border-t border-slate-800 pt-5 text-slate-500 text-xs sm:flex sm:items-center sm:justify-between">
+          <p>
+            © {new Date().getFullYear()} Life Care H. All rights reserved. |
+            <a
+              href="https://jrtechinnovators.vercel.app"
+              target="_blank"
+              rel="noreferrer"
+              className="ml-1 text-primary hover:underline"
+            >
+              Designed & Developed by JR Tech Innovators
+            </a>
+          </p>
           <p>Community-led progress for Odisha's villages, women and youth.</p>
         </div>
       </div>

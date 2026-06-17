@@ -84,31 +84,29 @@
   }
 
   .btn-donate-sticky {
-    position: fixed;
-    bottom: 1.5rem;
-    right: 1.5rem;
-    z-index: 50;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.55rem;
-    background-color: var(--primary);
-    color: var(--primary-foreground);
-    padding: 0.9rem 1.25rem;
-    font-size: 0.9rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    font-weight: 500;
-    border-radius: 9999px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.14);
-    transition:
-      transform 0.2s ease,
-      background-color 0.2s ease;
-  }
-  .btn-donate-sticky:hover {
-    background-color: oklch(0.72 0.09 25);
-    transform: translateY(-1px);
-  }
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-radius: 9999px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.14);
+  transition: all 0.3s ease;
+}
+
+.btn-donate-sticky:hover {
+  width: 190px;
+  background-color: oklch(0.72 0.09 25);
+  transform: translateY(-1px);
+}
 
   .eyebrow {
     font-size: 0.75rem;

@@ -38,9 +38,9 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
 
-      <Link to="/contact" className="btn-donate-sticky" aria-label="Donate now">
+      <Link to="/contact" className="btn-donate-sticky group" aria-label="Donate now">
         <HeartHandshake aria-hidden="true" className="h-5 w-5" strokeWidth={1.8} />
-        <span>Donate Now</span>
+        <span className="ml-2 hidden group-hover:inline">Donate Now</span>
       </Link>
     </>
   );
