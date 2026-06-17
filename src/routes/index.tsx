@@ -12,29 +12,6 @@ export default function Home() {
   useEffect(() => {
     document.title = "Life Care H — Empowering Rural Odisha Since 2002";
 
-    const els = Array.from(document.querySelectorAll(".impact-reveal")) as HTMLElement[];
-    if (!els.length) return;
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const el = entry.target as HTMLElement;
-            el.classList.add("opacity-100", "translate-y-0");
-            el.classList.remove("opacity-0", "translate-y-6");
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 },
-    );
-
-    els.forEach((el) => {
-      el.classList.add("opacity-0", "translate-y-6");
-      obs.observe(el);
-    });
-
-    return () => obs.disconnect();
   }, []);
 
   return (
@@ -142,6 +119,29 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="relative min-h-[80vh] w-full overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-fixed"
+          style={{ backgroundImage: `url(${joinUs})` }}
+          role="img"
+          aria-label="Community gathering"
+        />
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="relative z-10 mx-auto flex min-h-[80vh] max-w-6xl items-center px-8 py-24">
+          <div className="ml-auto max-w-2xl text-white">
+            <p className="eyebrow mb-6">Our Vision</p>
+            <div className="h-px w-full bg-white/40 mb-10" />
+            <h2 className="font-display text-3xl md:text-5xl leading-[1.25]">
+              An indiscriminate society built through the participation and involvement of the
+              target people and local communities.
+            </h2>
+            <Link to="/about" className="btn-donate mt-12 inline-block">
+              Read Our Story
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="py-24 md:py-32 bg-background">
         <div className="mx-auto max-w-6xl px-8">
           <p className="eyebrow text-primary mb-4">OUR IMPACT</p>
@@ -212,60 +212,6 @@ export default function Home() {
                 className="font-display text-lg md:text-xl text-foreground/60 text-center"
               >
                 {p}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="relative min-h-[80vh] w-full overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-fixed"
-          style={{ backgroundImage: `url(${joinUs})` }}
-          role="img"
-          aria-label="Community gathering"
-        />
-        <div className="absolute inset-0 bg-black/55" />
-        <div className="relative z-10 mx-auto flex min-h-[80vh] max-w-6xl items-center px-8 py-24">
-          <div className="ml-auto max-w-2xl text-white">
-            <p className="eyebrow mb-6">Our Vision</p>
-            <div className="h-px w-full bg-white/40 mb-10" />
-            <h2 className="font-display text-3xl md:text-5xl leading-[1.25]">
-              An indiscriminate society built through the participation and involvement of the
-              target people and local communities.
-            </h2>
-            <Link to="/about" className="btn-donate mt-12 inline-block">
-              Read Our Story
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-[100px] md:py-[140px]" style={{ backgroundColor: "#f8f8f8" }}>
-        <div className="mx-auto max-w-6xl px-8">
-          <p className="eyebrow text-primary mb-4 impact-reveal">OUR IMPACT</p>
-          <h2 className="font-display text-3xl md:text-4xl leading-[1.15] text-foreground max-w-3xl impact-reveal">
-            Creating Meaningful Change Across Odisha
-          </h2>
-          <p className="mt-6 text-lg text-muted-foreground leading-relaxed max-w-3xl impact-reveal">
-            Through community-driven initiatives, education support, healthcare awareness,
-            environmental activities, and volunteer engagement, we are working to build stronger and
-            more sustainable communities throughout Odisha.
-          </p>
-
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { n: "10,000+", t: "Lives Reached" },
-              { n: "50+", t: "Villages Supported" },
-              { n: "25+", t: "Community Programs" },
-              { n: "500+", t: "Volunteers Engaged" },
-            ].map((c) => (
-              <div
-                key={c.t}
-                className="impact-reveal bg-white rounded-lg p-8 text-center shadow-sm hover:shadow-lg transition-transform duration-300 transform hover:-translate-y-2"
-              >
-                <div className="font-display text-4xl md:text-5xl text-foreground">{c.n}</div>
-                <div className="eyebrow text-muted-foreground mt-3">{c.t}</div>
               </div>
             ))}
           </div>

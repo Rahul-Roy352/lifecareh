@@ -91,6 +91,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 0.55rem;
     background-color: var(--primary);
     color: var(--primary-foreground);
     padding: 0.9rem 1.25rem;

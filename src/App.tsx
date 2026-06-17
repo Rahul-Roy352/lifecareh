@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
+import { HeartHandshake } from "lucide-react";
 import Home from "@/routes/index";
 import About from "@/routes/about";
 import Programs from "@/routes/programs";
@@ -23,7 +24,7 @@ function NotFound() {
   );
 }
 
-export function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
@@ -36,6 +37,10 @@ export function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+      <Link to="/contact" className="btn-donate-sticky" aria-label="Donate now">
+        <HeartHandshake aria-hidden="true" className="h-5 w-5" strokeWidth={1.8} />
+        <span>Donate Now</span>
+      </Link>
     </BrowserRouter>
   );
 }

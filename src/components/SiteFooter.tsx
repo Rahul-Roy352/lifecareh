@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, MessageCircle } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import logoImage from "@/assets/logo.jpg";
 
 export function SiteFooter() {
@@ -53,7 +54,7 @@ export function SiteFooter() {
                   rel="noreferrer"
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 bg-slate-900 text-slate-300 transition hover:border-primary hover:text-primary"
                 >
-                  <MessageCircle className="h-4 w-4" />
+                  <FaWhatsapp className="h-4 w-4" />
                 </a>
               </div>
             </div>
