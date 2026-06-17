@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { PROGRAM_DETAILS, type ProgramDetail } from "@/data/programs";
 
 function Row({ program, index }: { program: ProgramDetail; index: number }) {
@@ -34,8 +34,7 @@ function Row({ program, index }: { program: ProgramDetail; index: number }) {
     >
       <div className={`order-1 ${imageLeft ? "md:order-1" : "md:order-2"}`}>
         <Link
-          to="/programs/$slug"
-          params={{ slug: program.slug }}
+          to={`/programs/${program.slug}`}
           className="block overflow-hidden rounded-2xl shadow-sm"
         >
           <img
@@ -52,14 +51,8 @@ function Row({ program, index }: { program: ProgramDetail; index: number }) {
           {program.title}
         </h3>
         <div className="h-px w-16 bg-foreground/20 my-6" />
-        <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
-          {program.body}
-        </p>
-        <Link
-          to="/programs/$slug"
-          params={{ slug: program.slug }}
-          className="btn-donate mt-8 inline-block"
-        >
+        <p className="text-base md:text-lg leading-relaxed text-muted-foreground">{program.body}</p>
+        <Link to={`/programs/${program.slug}`} className="btn-donate mt-8 inline-block">
           Learn More
         </Link>
       </div>

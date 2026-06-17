@@ -1,19 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import impact from "@/assets/impact.jpg";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-
-export const Route = createFileRoute("/impact")({
-  head: () => ({
-    meta: [
-      { title: "Our Impact — Life Care H" },
-      { name: "description", content: "Measuring our reach: women trained, farmers supported, saplings planted, and communities served across Odisha in 2025–26." },
-      { property: "og:title", content: "Impact — Life Care H" },
-      { property: "og:description", content: "Numbers behind the work — 2025–2026 reach across Puri, Cuttack and Angul." },
-    ],
-  }),
-  component: Impact,
-});
 
 const STATS = [
   { n: "450", t: "Community members mobilised · Puri" },
@@ -30,7 +18,11 @@ const STATS = [
   { n: "20+", t: "Years of grassroots service" },
 ];
 
-function Impact() {
+export default function Impact() {
+  useEffect(() => {
+    document.title = "Our Impact — Life Care H";
+  }, []);
+
   return (
     <main className="bg-background">
       <SiteHeader />
@@ -56,16 +48,21 @@ function Impact() {
 
       <section className="py-20 md:py-28 bg-card border-t border-border">
         <div className="mx-auto max-w-6xl px-8 grid md:grid-cols-2 gap-12 items-center">
-          <img src={impact} alt="Community impact" className="aspect-square w-full object-cover" loading="lazy" />
+          <img
+            src={impact}
+            alt="Community impact"
+            className="aspect-square w-full object-cover"
+            loading="lazy"
+          />
           <div>
             <p className="eyebrow text-primary mb-4">Where We Work</p>
             <h2 className="font-display text-3xl md:text-4xl text-foreground">
               Rooted in Angul · Working across Puri & Cuttack
             </h2>
             <p className="mt-6 text-muted-foreground leading-relaxed">
-              From our headquarters in Kalama Chhuin, Angul, our teams travel across coastal
-              and central Odisha — partnering with Self Help Groups, panchayats and local
-              artisans. Every program is co-designed with the communities it serves.
+              From our headquarters in Kalama Chhuin, Angul, our teams travel across coastal and
+              central Odisha — partnering with Self Help Groups, panchayats and local artisans.
+              Every program is co-designed with the communities it serves.
             </p>
           </div>
         </div>

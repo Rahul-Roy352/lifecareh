@@ -1,5 +1,5 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { SiteHeader } from "@/components/SiteHeader";
+import { useEffect, useMemo } from "react";
+import { Link, useParams } from "react-router-dom";
 import {
   Breadcrumb,
   BreadcrumbList,
@@ -8,49 +8,36 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { getProgramBySlug, PROGRAM_DETAILS, type ProgramDetail } from "@/data/programs";
 
-export const Route = createFileRoute("/programs/$slug")({
-  loader: ({ params }) => {
-    const program = getProgramBySlug(params.slug);
-    if (!program) throw notFound();
-    return { program };
-  },
-  head: ({ loaderData }) => {
-    const p = loaderData?.program;
-    const title = p ? `${p.title} — Life Care H` : "Program — Life Care H";
-    const description = p?.body ?? "Life Care H programs across Odisha.";
-    return {
-      meta: [
-        { title },
-        { name: "description", content: description },
-        { property: "og:title", content: title },
-        { property: "og:description", content: description },
-        ...(p ? [{ property: "og:image", content: p.image }] : []),
-      ],
-    };
-  },
-  notFoundComponent: () => (
-    <main className="bg-background">
-      <SiteHeader />
-      <section className="mx-auto max-w-3xl px-8 py-32 text-center">
-        <p className="eyebrow text-primary mb-4">Not found</p>
-        <h1 className="font-display text-4xl md:text-5xl text-foreground">
-          We couldn't find that program
-        </h1>
-        <Link to="/programs" className="btn-donate mt-10 inline-block">
-          Back to Programs
-        </Link>
-      </section>
-      <SiteFooter />
-    </main>
-  ),
-  component: ProgramDetailPage,
-});
+export default function ProgramDetailPage() {
+  const params = useParams();
+  const program = useMemo(() => getProgramBySlug(params.slug ?? ""), [params.slug]);
 
-function ProgramDetailPage() {
-  const { program } = Route.useLoaderData() as { program: ProgramDetail };
+  useEffect(() => {
+    document.title = program ? `${program.title} — Life Care H` : "Program — Life Care H";
+  }, [program]);
+
+  if (!program) {
+    return (
+      <main className="bg-background">
+        <SiteHeader />
+        <section className="mx-auto max-w-3xl px-8 py-32 text-center">
+          <p className="eyebrow text-primary mb-4">Not found</p>
+          <h1 className="font-display text-4xl md:text-5xl text-foreground">
+            We couldn't find that program
+          </h1>
+          <Link to="/programs" className="btn-donate mt-10 inline-block">
+            Back to Programs
+          </Link>
+        </section>
+        <SiteFooter />
+      </main>
+    );
+  }
+
   const others = PROGRAM_DETAILS.filter((p) => p.slug !== program.slug);
 
   return (
@@ -97,9 +84,7 @@ function ProgramDetailPage() {
           <p className="mt-6 max-w-2xl text-base md:text-lg text-white/85 leading-relaxed">
             {program.body}
           </p>
-          <p className="mt-6 text-xs tracking-[0.25em] uppercase text-white/70">
-            {program.region}
-          </p>
+          <p className="mt-6 text-xs tracking-[0.25em] uppercase text-white/70">{program.region}</p>
         </div>
       </section>
 
@@ -149,9 +134,7 @@ function ProgramDetailPage() {
                     <dt className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
                       {o.label}
                     </dt>
-                    <dd className="mt-2 font-display text-3xl text-foreground">
-                      {o.value}
-                    </dd>
+                    <dd className="mt-2 font-display text-3xl text-foreground">{o.value}</dd>
                   </div>
                 ))}
               </dl>
@@ -166,17 +149,10 @@ function ProgramDetailPage() {
       <section className="border-t border-border/60 bg-muted/30 py-20 md:py-24">
         <div className="mx-auto max-w-[1200px] px-6 md:px-8">
           <p className="eyebrow text-primary mb-4">Explore more</p>
-          <h2 className="font-display text-3xl md:text-4xl text-foreground">
-            Other programs
-          </h2>
+          <h2 className="font-display text-3xl md:text-4xl text-foreground">Other programs</h2>
           <div className="mt-12 grid gap-8 md:grid-cols-3">
             {others.map((p) => (
-              <Link
-                key={p.slug}
-                to="/programs/$slug"
-                params={{ slug: p.slug }}
-                className="group block"
-              >
+              <Link key={p.slug} to={`/programs/${p.slug}`} className="group block">
                 <div className="overflow-hidden rounded-2xl">
                   <img
                     src={p.image}

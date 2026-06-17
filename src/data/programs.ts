@@ -119,5 +119,4 @@ export const PROGRAM_DETAILS: ProgramDetail[] = [
   },
 ];
 
-export const getProgramBySlug = (slug: string) =>
-  PROGRAM_DETAILS.find((p) => p.slug === slug);
+export const getProgramBySlug = (slug: string) => PROGRAM_DETAILS.find((p) => p.slug === slug);

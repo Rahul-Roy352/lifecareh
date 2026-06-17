@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Facebook, Instagram, MessageCircle } from "lucide-react";
 import logoImage from "@/assets/logo.jpg";
 
@@ -24,7 +24,9 @@ export function SiteFooter() {
               </div>
             </div>
             <p className="max-w-md text-sm leading-relaxed text-slate-300">
-              A grassroots social organization since 2002, empowering rural and marginalized communities across Odisha through health, education, livelihoods and environmental action.
+              A grassroots social organization since 2002, empowering rural and marginalized
+              communities across Odisha through health, education, livelihoods and environmental
+              action.
             </p>
             <div className="mt-6">
               <p className="text-xs uppercase tracking-[0.3em] text-slate-500 mb-3">Follow us</p>
@@ -60,10 +62,18 @@ export function SiteFooter() {
           <div className="text-left">
             <p className="eyebrow text-slate-500 mb-4">Quick Links</p>
             <div className="space-y-3 text-sm text-slate-300">
-              <Link to="/about" className="block transition hover:text-primary">About Us</Link>
-              <Link to="/programs" className="block transition hover:text-primary">Programs</Link>
-              <Link to="/impact" className="block transition hover:text-primary">Impact</Link>
-              <Link to="/events" className="block transition hover:text-primary">Events</Link>
+              <Link to="/about" className="block transition hover:text-primary">
+                About Us
+              </Link>
+              <Link to="/programs" className="block transition hover:text-primary">
+                Programs
+              </Link>
+              <Link to="/impact" className="block transition hover:text-primary">
+                Impact
+              </Link>
+              <Link to="/events" className="block transition hover:text-primary">
+                Events
+              </Link>
             </div>
           </div>
 

@@ -45,15 +45,22 @@
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; }
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-body);
     font-weight: 300;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     font-weight: 400;
     letter-spacing: -0.01em;
@@ -72,7 +79,9 @@
     font-weight: 400;
     transition: background-color 0.3s ease;
   }
-  .btn-donate:hover { background-color: oklch(0.72 0.09 25); }
+  .btn-donate:hover {
+    background-color: oklch(0.72 0.09 25);
+  }
 
   .btn-donate-sticky {
     position: fixed;
@@ -91,7 +100,9 @@
     font-weight: 500;
     border-radius: 9999px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.14);
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      background-color 0.2s ease;
   }
   .btn-donate-sticky:hover {
     background-color: oklch(0.72 0.09 25);

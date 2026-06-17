@@ -1,18 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-
-export const Route = createFileRoute("/events")({
-  head: () => ({
-    meta: [
-      { title: "Cultural Events — Life Care H" },
-      { name: "description", content: "Cultural programs and exhibitions including Gandhi Silpa Bajara — celebrating Odisha's artisans, community collectives and traditional handlooms." },
-      { property: "og:title", content: "Cultural Events — Life Care H" },
-      { property: "og:description", content: "Programs that foster talent, teamwork and social harmony." },
-    ],
-  }),
-  component: Events,
-});
 
 const EVENTS = [
   {
@@ -25,7 +13,11 @@ const EVENTS = [
   },
 ];
 
-function Events() {
+export default function Events() {
+  useEffect(() => {
+    document.title = "Cultural Events — Life Care H";
+  }, []);
+
   return (
     <main className="bg-background">
       <SiteHeader />
