@@ -49,7 +49,7 @@ export function SiteFooter() {
                   <Instagram className="h-4 w-4" />
                 </a>
                 <a
-                  href="https://wa.me/+919876543210"
+                  href="https://wa.me/+919778038181"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 bg-slate-900 text-slate-300 transition hover:border-primary hover:text-primary"
