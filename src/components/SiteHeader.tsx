@@ -100,13 +100,15 @@ export function SiteHeader({ variant = "light" }: { variant?: "light" | "dark" }
                 </NavLink>
               ))}
 
-              <Link
-                to="/contact"
-                onClick={() => setMobileMenuOpen(false)}
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  openDonate();
+                }}
                 className="btn-donate text-center"
               >
-                Support Us
-              </Link>
+                Donate Now
+              </button>
             </nav>
           </div>
         )}
