@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import logoImage from "@/assets/logo.jpg";
+import { useDonate } from "@/components/DonateModal";
 
 const NAV = [
   { label: "Home", to: "/" },
@@ -15,6 +16,7 @@ const NAV = [
 export function SiteHeader({ variant = "light" }: { variant?: "light" | "dark" }) {
   const isDark = variant === "dark";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { open: openDonate } = useDonate();
 
   return (
     <>
@@ -62,9 +64,9 @@ export function SiteHeader({ variant = "light" }: { variant?: "light" | "dark" }
               </NavLink>
             ))}
           </nav>
-          <Link to="/contact" className="btn-donate hidden lg:inline-block shrink-0">
-            Support Us
-          </Link>
+          <button onClick={openDonate} className="btn-donate hidden lg:inline-block shrink-0">
+            Donate Now
+          </button>
 
           <button
             className={`lg:hidden ${isDark ? "text-white" : "text-foreground"}`}
@@ -98,13 +100,15 @@ export function SiteHeader({ variant = "light" }: { variant?: "light" | "dark" }
                 </NavLink>
               ))}
 
-              <Link
-                to="/contact"
-                onClick={() => setMobileMenuOpen(false)}
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  openDonate();
+                }}
                 className="btn-donate text-center"
               >
-                Support Us
-              </Link>
+                Donate Now
+              </button>
             </nav>
           </div>
         )}
