@@ -1,4 +1,4 @@
-import { Link, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { HeartHandshake } from "lucide-react";
 import Home from "@/routes/index";
 import About from "@/routes/about";
@@ -7,6 +7,8 @@ import ProgramDetail from "@/routes/programs.$slug";
 import Impact from "@/routes/impact";
 import Events from "@/routes/events";
 import Contact from "@/routes/contact";
+import { DonateProvider, useDonate } from "@/components/DonateModal";
+import { Toaster } from "@/components/ui/sonner";
 import "./styles.css";
 
 function NotFound() {
@@ -24,9 +26,19 @@ function NotFound() {
   );
 }
 
+function StickyDonate() {
+  const { open } = useDonate();
+  return (
+    <button onClick={open} className="btn-donate-sticky group" aria-label="Donate now">
+      <HeartHandshake aria-hidden="true" className="h-5 w-5" strokeWidth={1.8} />
+      <span className="ml-2 hidden group-hover:inline">Donate Now</span>
+    </button>
+  );
+}
+
 export default function App() {
   return (
-    <>
+    <DonateProvider>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -38,10 +50,8 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
 
-      <Link to="/contact" className="btn-donate-sticky group" aria-label="Donate now">
-        <HeartHandshake aria-hidden="true" className="h-5 w-5" strokeWidth={1.8} />
-        <span className="ml-2 hidden group-hover:inline">Donate Now</span>
-      </Link>
-    </>
+      <StickyDonate />
+      <Toaster position="top-center" richColors />
+    </DonateProvider>
   );
 }
