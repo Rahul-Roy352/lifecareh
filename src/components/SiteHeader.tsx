@@ -64,9 +64,9 @@ export function SiteHeader({ variant = "light" }: { variant?: "light" | "dark" }
               </NavLink>
             ))}
           </nav>
-          <Link to="/contact" className="btn-donate hidden lg:inline-block shrink-0">
-            Support Us
-          </Link>
+          <button onClick={openDonate} className="btn-donate hidden lg:inline-block shrink-0">
+            Donate Now
+          </button>
 
           <button
             className={`lg:hidden ${isDark ? "text-white" : "text-foreground"}`}
