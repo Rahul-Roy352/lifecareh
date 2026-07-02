@@ -16,6 +16,7 @@ const NAV = [
 export function SiteHeader({ variant = "light" }: { variant?: "light" | "dark" }) {
   const isDark = variant === "dark";
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { open: openDonate } = useDonate();
 
   return (
     <>
