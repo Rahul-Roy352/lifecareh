@@ -1,101 +1,227 @@
-import { useEffect } from "react";
-import joinUs from "@/assets/join-us.jpg";
+import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { FeaturedPrograms } from "@/components/FeaturedPrograms";
+import heroBg from "@/assets/join-us.jpg";
+import imgWomen from "@/assets/program-women.jpg";
+import imgAgri from "@/assets/program-agriculture.jpg";
+import imgHealth from "@/assets/program-health.jpg";
+import imgEdu from "@/assets/program-education.jpg";
+import imgEnv from "@/assets/program-environment.jpg";
+import imgCultural from "@/assets/program-cultural.jpg";
 
-const GROUPS = [
+const ACCENT = "#2E7D32";
+
+type Card = { title: string; points: string[] };
+type Section = {
+  slug: string;
+  number: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  image: string;
+  alt: string;
+  cards: Card[];
+};
+
+const SECTIONS: Section[] = [
   {
-    eyebrow: "Community Empowerment & Capacity Building",
-    heading: "Mobilising villages and building local leaders",
-    items: [
-      {
-        title: "Village Collective Formation",
-        body: "Mobilised 450+ community members in Puri district into village-level collectives for shared savings, planning and local action.",
-      },
-      {
-        title: "Grassroots Leadership Training",
-        body: "Conducted in Cuttack with around 700 participants across 20 collectives, building skills in leadership, rights and public-scheme awareness.",
-      },
-      {
-        title: "Artisan & Livelihood Support",
-        body: "Organized 16 camps in Cuttack district for 160 traditional artisans to strengthen cane, bamboo, terracotta and appliqué livelihoods.",
-      },
-      {
-        title: "Vocational Training",
-        body: "Provided practical skills training to 529 unemployed youth and adults in Puri district.",
-      },
-      {
-        title: "Skill Development for SC, ST, OBC",
-        body: "Organized 27 training programs in Cuttack district, benefiting 800 participants with skills like carpentry, masonry and tailoring.",
-      },
+    slug: "community-empowerment",
+    number: "01",
+    eyebrow: "Women Empowerment & Skill Development",
+    title: "Empowering women through skills and self-reliance",
+    description:
+      "Strengthening women's livelihoods through Self Help Groups, vocational training, handicrafts, coir production, and entrepreneurship.",
+    image: imgWomen,
+    alt: "Women participating in a Self Help Group meeting",
+    cards: [
+      { title: "SHG Promotion & Formation", points: ["450 women engaged in Puri district", "Group savings", "Income generation"] },
+      { title: "Coir Training Program", points: ["700 women", "20 SHGs", "Eco-friendly coir products"] },
+      { title: "Training on Handicrafts", points: ["16 camps", "160 artisans", "Cane, bamboo, terracotta & appliqué"] },
+      { title: "Vocational Training", points: ["529 unemployed youth and women", "Practical skills for livelihoods"] },
+      { title: "Skill Development for SC/ST/OBC", points: ["27 training programmes", "800 beneficiaries", "Carpentry, masonry & tailoring"] },
     ],
   },
   {
+    slug: "agriculture-livelihood",
+    number: "02",
     eyebrow: "Agriculture & Livelihood",
-    heading: "Sustainable farming and food security",
-    items: [
-      {
-        title: "Sustainable Agriculture Program",
-        body: "Organized 30 workshops in Cuttack district, guiding 1,000 farmers on organic farming, soil conservation and modern agricultural technologies.",
-      },
-      {
-        title: "Food Processing Training",
-        body: "Hosted 20 training camps in Cuttack district for around 1,000 farmers, women and youths on food preservation and value addition.",
-      },
+    title: "Sustainable farming, stronger rural livelihoods",
+    description:
+      "Promoting sustainable farming and improving rural livelihoods through modern agricultural practices and food-processing enterprise.",
+    image: imgAgri,
+    alt: "Farmers working in agricultural fields",
+    cards: [
+      { title: "Sustainable Agriculture Program", points: ["30 workshops", "1,000 farmers", "Organic farming", "Soil conservation", "Modern agri-technology"] },
+      { title: "Food Processing Training", points: ["20 training camps", "~1,000 beneficiaries", "Food preservation", "Value addition"] },
     ],
   },
   {
+    slug: "health-water-sanitation",
+    number: "03",
     eyebrow: "Health, Water & Sanitation",
-    heading: "Healthier homes and communities",
-    items: [
-      {
-        title: "Health Program",
-        body: "Hosted 19 health camps in Cuttack district, providing free medical check-ups and essential medicines to over 850 beneficiaries.",
-      },
-      {
-        title: "Water & Sanitation Program",
-        body: "Implemented in Puri district to spread awareness about safe drinking water, proper waste disposal and the prevention of waterborne diseases.",
-      },
+    title: "Healthier homes, safer communities",
+    description:
+      "Improving public health through free healthcare services, sanitation awareness, and access to safe drinking water.",
+    image: imgHealth,
+    alt: "Doctors conducting a rural health camp",
+    cards: [
+      { title: "Health Program", points: ["19 health camps", "850+ beneficiaries", "Free medical check-ups", "Free medicines"] },
+      { title: "Water & Sanitation Program", points: ["Safe drinking water awareness", "Proper waste disposal", "Waterborne disease prevention"] },
     ],
   },
   {
+    slug: "education-environment",
+    number: "04",
     eyebrow: "Education & Youth",
-    heading: "Opening doors through learning",
-    items: [
-      {
-        title: "Education Program",
-        body: "Supported around 700 underprivileged children in Cuttack district by distributing free books, study materials and school bags.",
-      },
-      {
-        title: "Computer Education Program",
-        body: "Ran a four-month program in Puri district for school-going children and rural youth to learn MS Office, typing and internet usage.",
-      },
+    title: "Learning, digital literacy and opportunity",
+    description:
+      "Supporting education and digital literacy for underprivileged children and rural youth across Odisha.",
+    image: imgEdu,
+    alt: "Children studying in a classroom",
+    cards: [
+      { title: "Education Program", points: ["700 underprivileged children", "Free books", "Study materials", "School bags"] },
+      { title: "Computer Education Program", points: ["Four-month course", "MS Office", "Typing", "Internet usage", "Rural youth"] },
     ],
   },
   {
+    slug: "environment-awareness",
+    number: "05",
     eyebrow: "Environment & Awareness",
-    heading: "Protecting people and the planet",
-    items: [
-      {
-        title: "Social Forestry & Plantation",
-        body: "Planted around 30,000 saplings — including Mango, Eucalyptus and Akashi — across Puri district.",
-      },
-      {
-        title: "National Environment Awareness Campaign",
-        body: "Conducted 20 campaigns in Puri district with 700 active participants focusing on plastic pollution and natural resource conservation.",
-      },
-      {
-        title: "Awareness on Electronic Waste",
-        body: "Educated communities on the harmful effects of e-waste and safe disposal.",
-      },
-      {
-        title: "Consumer & Micro-Insurance Awareness",
-        body: "Educated thousands across Puri and Cuttack on consumer rights, safe online shopping and financial security through insurance.",
-      },
+    title: "Protecting nature, protecting people",
+    description:
+      "Protecting nature through plantation drives, awareness campaigns and consumer education.",
+    image: imgEnv,
+    alt: "Community tree plantation drive",
+    cards: [
+      { title: "Social Forestry & Plantation", points: ["30,000 saplings", "Mango", "Eucalyptus", "Akashi"] },
+      { title: "National Environment Awareness", points: ["20 campaigns", "700 participants", "Plastic pollution awareness", "Natural resource conservation"] },
+      { title: "Awareness on Electronic Waste", points: ["E-waste awareness", "Safe disposal methods"] },
+      { title: "Consumer & Micro-Insurance", points: ["Consumer rights", "Safe online shopping", "Financial security", "Thousands of beneficiaries"] },
+    ],
+  },
+  {
+    slug: "cultural-events",
+    number: "06",
+    eyebrow: "Cultural Events",
+    title: "Celebrating Odisha's living heritage",
+    description:
+      "Preserving Odisha's rich cultural heritage while supporting local artisans and community talent.",
+    image: imgCultural,
+    alt: "Traditional cultural performance",
+    cards: [
+      { title: "Cultural Program", points: ["Dance", "Music", "Drama", "Talent development", "Teamwork", "Social harmony"] },
+      { title: "Gandhi Silpa Bajara", points: ["Exhibition for artisans", "Handmade products", "Handlooms", "SHG participation"] },
     ],
   },
 ];
+
+function useReveal<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setVisible(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.12 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return { ref, visible };
+}
+
+function SectionBlock({ section, index }: { section: Section; index: number }) {
+  const { ref, visible } = useReveal<HTMLDivElement>();
+  const imageLeft = index % 2 === 0;
+
+  return (
+    <div
+      ref={ref}
+      className={`grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center transition-all duration-700 ease-out ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+      }`}
+    >
+      <div className={`lg:col-span-6 ${imageLeft ? "lg:order-1" : "lg:order-2"}`}>
+        <div className="relative overflow-hidden rounded-3xl shadow-[0_30px_60px_-25px_rgba(0,0,0,0.35)] group">
+          <img
+            src={section.image}
+            alt={section.alt}
+            loading="lazy"
+            width={1024}
+            height={1024}
+            className="h-full w-full object-cover aspect-[4/3] transition-transform duration-[900ms] ease-out group-hover:scale-105"
+          />
+          <div
+            className="absolute top-5 left-5 rounded-full px-4 py-1.5 text-xs tracking-[0.25em] font-medium text-white"
+            style={{ backgroundColor: ACCENT }}
+          >
+            {section.number}
+          </div>
+        </div>
+      </div>
+
+      <div className={`lg:col-span-6 ${imageLeft ? "lg:order-2" : "lg:order-1"}`}>
+        <p
+          className="eyebrow mb-4"
+          style={{ color: ACCENT }}
+        >
+          {section.eyebrow}
+        </p>
+        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl leading-[1.1] text-foreground">
+          {section.title}
+        </h2>
+        <div
+          className="h-[3px] w-16 my-6"
+          style={{ backgroundColor: ACCENT }}
+        />
+        <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
+          {section.description}
+        </p>
+
+        <div className="mt-8 grid sm:grid-cols-2 gap-4">
+          {section.cards.map((c) => (
+            <div
+              key={c.title}
+              className="rounded-2xl border border-black/5 bg-white p-5 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-20px_rgba(46,125,50,0.35)]"
+            >
+              <h3 className="font-display text-lg text-foreground leading-snug">{c.title}</h3>
+              <div className="h-px w-8 my-3" style={{ backgroundColor: ACCENT }} />
+              <ul className="space-y-1.5">
+                {c.points.map((p) => (
+                  <li key={p} className="flex items-start gap-2 text-sm text-muted-foreground leading-relaxed">
+                    <span
+                      className="mt-[7px] inline-block h-1.5 w-1.5 rounded-full flex-shrink-0"
+                      style={{ backgroundColor: ACCENT }}
+                    />
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <Link
+          to={`/programs/${section.slug}`}
+          className="mt-8 inline-flex items-center gap-2 px-8 py-3.5 text-xs tracking-[0.25em] uppercase text-white transition-all duration-300 hover:gap-3 rounded-full"
+          style={{ backgroundColor: ACCENT }}
+        >
+          Learn More
+          <span aria-hidden>→</span>
+        </Link>
+      </div>
+    </div>
+  );
+}
 
 export default function Programs() {
   useEffect(() => {
@@ -105,47 +231,81 @@ export default function Programs() {
   return (
     <main className="bg-background">
       <SiteHeader />
-      <section className="relative min-h-[55vh] w-full overflow-hidden">
+
+      {/* Hero */}
+      <section className="relative min-h-[70vh] w-full overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-fixed"
-          style={{ backgroundImage: `url(${joinUs})` }}
+          style={{ backgroundImage: `url(${heroBg})` }}
           role="img"
-          aria-label=""
+          aria-label="Community programmes across Odisha"
         />
-        <div className="absolute inset-0 bg-black/60" />
-        <div className="relative z-10 mx-auto flex min-h-[55vh] max-w-5xl flex-col justify-center px-8 py-24 text-white">
-          <p className="eyebrow mb-6 text-white/80">Our Programs & Impact · 2025–2026</p>
-          <h1 className="font-display text-4xl md:text-6xl leading-[1.1] max-w-3xl">
-            Need-based programs serving thousands across Odisha
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/75" />
+        <div className="relative z-10 mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-center px-6 md:px-8 py-24 text-white">
+          <p className="eyebrow mb-6 text-white/85" style={{ color: "#A5D6A7" }}>
+            Our Work · 2025–2026
+          </p>
+          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl leading-[1.05] max-w-4xl">
+            Our Programs &amp; Impact <span className="text-white/70">(2025–2026)</span>
           </h1>
+          <p className="mt-8 max-w-2xl text-lg md:text-xl text-white/85 leading-relaxed font-light">
+            Empowering communities across Odisha through education, healthcare, livelihood,
+            environment, women's empowerment, and cultural development.
+          </p>
         </div>
       </section>
 
-      <FeaturedPrograms />
+      {/* Intro */}
+      <section className="py-20 md:py-28 bg-background">
+        <div className="mx-auto max-w-4xl px-6 md:px-8 text-center">
+          <p className="eyebrow mb-5" style={{ color: ACCENT }}>
+            What We Do
+          </p>
+          <h2 className="font-display text-3xl md:text-5xl leading-[1.1] text-foreground">
+            Programs Rooted in Community, Driven by Impact
+          </h2>
+          <div className="h-[3px] w-16 mx-auto my-8" style={{ backgroundColor: ACCENT }} />
+          <p className="text-lg md:text-xl leading-relaxed text-muted-foreground font-light">
+            LIFE CARE (H) works with rural communities, women, children, farmers, artisans and youth
+            through sustainable development programmes that improve livelihoods, education, health and
+            environmental awareness.
+          </p>
+        </div>
+      </section>
 
-      <section className="py-20 md:py-28">
-        <div className="mx-auto max-w-6xl px-8 space-y-24">
-          {GROUPS.map((g) => (
-            <div key={g.eyebrow}>
-              <p className="eyebrow text-primary mb-4">{g.eyebrow}</p>
-              <h2 className="font-display text-3xl md:text-4xl text-foreground max-w-3xl">
-                {g.heading}
-              </h2>
-              <div className="h-px w-full bg-foreground/15 mt-8 mb-10" />
-              <div className="grid md:grid-cols-2 gap-x-12 gap-y-10">
-                {g.items.map((it) => (
-                  <div key={it.title}>
-                    <h3 className="font-display text-2xl text-foreground">{it.title}</h3>
-                    <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-                      {it.body}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
+      {/* Program sections */}
+      <section className="pb-24 md:pb-36">
+        <div className="mx-auto max-w-[1200px] px-6 md:px-8 space-y-28 md:space-y-40">
+          {SECTIONS.map((s, i) => (
+            <SectionBlock key={s.slug} section={s} index={i} />
           ))}
         </div>
       </section>
+
+      {/* CTA strip */}
+      <section
+        className="py-20 md:py-24 text-white"
+        style={{ background: `linear-gradient(135deg, ${ACCENT} 0%, #1B5E20 100%)` }}
+      >
+        <div className="mx-auto max-w-4xl px-6 md:px-8 text-center">
+          <h2 className="font-display text-3xl md:text-5xl leading-[1.1]">
+            Partner with us to reach the next village
+          </h2>
+          <p className="mt-6 text-lg md:text-xl text-white/85 font-light leading-relaxed max-w-2xl mx-auto">
+            Every programme is powered by donors, volunteers and local partners who believe in
+            dignified, community-led change.
+          </p>
+          <div className="mt-10 flex flex-wrap gap-4 justify-center">
+            <Link
+              to="/contact"
+              className="inline-block bg-white text-foreground px-8 py-4 text-xs tracking-[0.25em] uppercase rounded-full hover:bg-white/90 transition-colors"
+            >
+              Get in Touch
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <SiteFooter />
     </main>
   );
