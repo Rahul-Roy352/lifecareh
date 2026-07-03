@@ -10,8 +10,6 @@ import imgEdu from "@/assets/program-education.jpg";
 import imgEnv from "@/assets/program-environment.jpg";
 import imgCultural from "@/assets/program-cultural.jpg";
 
-const ACCENT = "#2E7D32";
-
 type Card = { title: string; points: string[] };
 type Section = {
   slug: string;
@@ -151,7 +149,7 @@ function SectionBlock({ section, index }: { section: Section; index: number }) {
       }`}
     >
       <div className={`lg:col-span-6 ${imageLeft ? "lg:order-1" : "lg:order-2"}`}>
-        <div className="relative overflow-hidden rounded-3xl shadow-[0_30px_60px_-25px_rgba(0,0,0,0.35)] group">
+        <div className="relative overflow-hidden rounded-sm shadow-[0_30px_60px_-25px_rgba(0,0,0,0.35)] group">
           <img
             src={section.image}
             alt={section.alt}
@@ -160,29 +158,18 @@ function SectionBlock({ section, index }: { section: Section; index: number }) {
             height={1024}
             className="h-full w-full object-cover aspect-[4/3] transition-transform duration-[900ms] ease-out group-hover:scale-105"
           />
-          <div
-            className="absolute top-5 left-5 rounded-full px-4 py-1.5 text-xs tracking-[0.25em] font-medium text-white"
-            style={{ backgroundColor: ACCENT }}
-          >
+          <div className="absolute top-5 left-5 rounded-none px-4 py-1.5 text-xs tracking-[0.25em] font-medium text-primary-foreground bg-primary">
             {section.number}
           </div>
         </div>
       </div>
 
-      <div className={`lg:col-span-6 ${imageLeft ? "lg:order-2" : "lg:order-1"}`}>
-        <p
-          className="eyebrow mb-4"
-          style={{ color: ACCENT }}
-        >
-          {section.eyebrow}
-        </p>
-        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl leading-[1.1] text-foreground">
+      <div className={`lg:col-span-6 flex flex-col ${imageLeft ? "lg:order-2" : "lg:order-1"}`}>
+        <p className="eyebrow text-primary mb-4">{section.eyebrow}</p>
+        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl leading-[1.15] text-foreground">
           {section.title}
         </h2>
-        <div
-          className="h-[3px] w-16 my-6"
-          style={{ backgroundColor: ACCENT }}
-        />
+        <div className="h-px w-16 my-6 bg-primary" />
         <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
           {section.description}
         </p>
@@ -191,17 +178,14 @@ function SectionBlock({ section, index }: { section: Section; index: number }) {
           {section.cards.map((c) => (
             <div
               key={c.title}
-              className="rounded-2xl border border-black/5 bg-white p-5 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-20px_rgba(46,125,50,0.35)]"
+              className="rounded-sm border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.2)]"
             >
               <h3 className="font-display text-lg text-foreground leading-snug">{c.title}</h3>
-              <div className="h-px w-8 my-3" style={{ backgroundColor: ACCENT }} />
+              <div className="h-px w-8 my-3 bg-primary" />
               <ul className="space-y-1.5">
                 {c.points.map((p) => (
                   <li key={p} className="flex items-start gap-2 text-sm text-muted-foreground leading-relaxed">
-                    <span
-                      className="mt-[7px] inline-block h-1.5 w-1.5 rounded-full flex-shrink-0"
-                      style={{ backgroundColor: ACCENT }}
-                    />
+                    <span className="mt-[7px] inline-block h-1.5 w-1.5 rounded-full flex-shrink-0 bg-primary" />
                     <span>{p}</span>
                   </li>
                 ))}
@@ -212,11 +196,9 @@ function SectionBlock({ section, index }: { section: Section; index: number }) {
 
         <Link
           to={`/programs/${section.slug}`}
-          className="mt-8 inline-flex items-center gap-2 px-8 py-3.5 text-xs tracking-[0.25em] uppercase text-white transition-all duration-300 hover:gap-3 rounded-full"
-          style={{ backgroundColor: ACCENT }}
+          className="btn-donate mt-10 self-start"
         >
           Learn More
-          <span aria-hidden>→</span>
         </Link>
       </div>
     </div>
@@ -230,8 +212,6 @@ export default function Programs() {
 
   return (
     <main className="bg-background">
-      <SiteHeader />
-
       {/* Hero */}
       <section className="relative min-h-[70vh] w-full overflow-hidden">
         <div
@@ -240,15 +220,14 @@ export default function Programs() {
           role="img"
           aria-label="Community programmes across Odisha"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/75" />
+        <div className="absolute inset-0 bg-black/60" />
+        <SiteHeader variant="dark" />
         <div className="relative z-10 mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-center px-6 md:px-8 py-24 text-white">
-          <p className="eyebrow mb-6 text-white/85" style={{ color: "#A5D6A7" }}>
-            Our Work · 2025–2026
-          </p>
+          <p className="eyebrow mb-6 text-white/80">Our Work · 2025–2026</p>
           <h1 className="font-display text-4xl md:text-6xl lg:text-7xl leading-[1.05] max-w-4xl">
-            Our Programs &amp; Impact <span className="text-white/70">(2025–2026)</span>
+            Our Programs &amp; Impact
           </h1>
-          <p className="mt-8 max-w-2xl text-lg md:text-xl text-white/85 leading-relaxed font-light">
+          <p className="mt-8 max-w-2xl text-lg md:text-xl text-white/85 leading-relaxed font-display italic">
             Empowering communities across Odisha through education, healthcare, livelihood,
             environment, women's empowerment, and cultural development.
           </p>
@@ -256,19 +235,17 @@ export default function Programs() {
       </section>
 
       {/* Intro */}
-      <section className="py-20 md:py-28 bg-background">
+      <section className="py-24 md:py-32 bg-background">
         <div className="mx-auto max-w-4xl px-6 md:px-8 text-center">
-          <p className="eyebrow mb-5" style={{ color: ACCENT }}>
-            What We Do
-          </p>
-          <h2 className="font-display text-3xl md:text-5xl leading-[1.1] text-foreground">
-            Programs Rooted in Community, Driven by Impact
+          <p className="eyebrow text-primary mb-5">What We Do</p>
+          <h2 className="font-display text-3xl md:text-5xl leading-[1.15] text-foreground">
+            Programs rooted in community, driven by impact
           </h2>
-          <div className="h-[3px] w-16 mx-auto my-8" style={{ backgroundColor: ACCENT }} />
-          <p className="text-lg md:text-xl leading-relaxed text-muted-foreground font-light">
+          <div className="h-px w-16 mx-auto my-8 bg-primary" />
+          <p className="text-lg leading-relaxed text-muted-foreground">
             LIFE CARE (H) works with rural communities, women, children, farmers, artisans and youth
-            through sustainable development programmes that improve livelihoods, education, health and
-            environmental awareness.
+            through sustainable development programmes that improve livelihoods, education, health
+            and environmental awareness.
           </p>
         </div>
       </section>
@@ -283,26 +260,26 @@ export default function Programs() {
       </section>
 
       {/* CTA strip */}
-      <section
-        className="py-20 md:py-24 text-white"
-        style={{ background: `linear-gradient(135deg, ${ACCENT} 0%, #1B5E20 100%)` }}
-      >
-        <div className="mx-auto max-w-4xl px-6 md:px-8 text-center">
-          <h2 className="font-display text-3xl md:text-5xl leading-[1.1]">
+      <section className="relative min-h-[60vh] w-full overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-fixed"
+          style={{ backgroundImage: `url(${heroBg})` }}
+          role="img"
+          aria-label=""
+        />
+        <div className="absolute inset-0 bg-black/65" />
+        <div className="relative z-10 mx-auto flex min-h-[60vh] max-w-4xl flex-col items-center justify-center px-6 md:px-8 py-24 text-center text-white">
+          <p className="eyebrow mb-6 text-white/80">Stand With Us</p>
+          <h2 className="font-display text-3xl md:text-5xl leading-[1.15]">
             Partner with us to reach the next village
           </h2>
-          <p className="mt-6 text-lg md:text-xl text-white/85 font-light leading-relaxed max-w-2xl mx-auto">
+          <p className="mt-6 text-lg md:text-xl text-white/85 font-display italic leading-relaxed max-w-2xl">
             Every programme is powered by donors, volunteers and local partners who believe in
             dignified, community-led change.
           </p>
-          <div className="mt-10 flex flex-wrap gap-4 justify-center">
-            <Link
-              to="/contact"
-              className="inline-block bg-white text-foreground px-8 py-4 text-xs tracking-[0.25em] uppercase rounded-full hover:bg-white/90 transition-colors"
-            >
-              Get in Touch
-            </Link>
-          </div>
+          <Link to="/contact" className="btn-donate mt-10">
+            Get in Touch
+          </Link>
         </div>
       </section>
 
