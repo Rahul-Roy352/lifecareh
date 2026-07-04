@@ -144,41 +144,69 @@ function SectionBlock({ section, index }: { section: Section; index: number }) {
   return (
     <div
       ref={ref}
-      className={`grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center transition-all duration-700 ease-out ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-      }`}
+      className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start"
     >
       <div className={`lg:col-span-6 ${imageLeft ? "lg:order-1" : "lg:order-2"}`}>
-        <div className="relative overflow-hidden rounded-sm shadow-[0_30px_60px_-25px_rgba(0,0,0,0.35)] group">
-          <img
-            src={section.image}
-            alt={section.alt}
-            loading="lazy"
-            width={1024}
-            height={1024}
-            className="h-full w-full object-cover aspect-[4/3] transition-transform duration-[900ms] ease-out group-hover:scale-105"
-          />
-          <div className="absolute top-5 left-5 rounded-none px-4 py-1.5 text-xs tracking-[0.25em] font-medium text-primary-foreground bg-primary">
-            {section.number}
+        <div className="lg:sticky lg:top-24">
+          <div
+            className={`relative overflow-hidden rounded-sm shadow-[0_30px_60px_-25px_rgba(0,0,0,0.35)] group transition-all duration-700 ease-out ${
+              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
+            <img
+              src={section.image}
+              alt={section.alt}
+              loading="lazy"
+              width={1024}
+              height={1024}
+              className="h-full w-full object-cover aspect-[4/3] transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
+            />
+            <div className="absolute top-5 left-5 rounded-none px-4 py-1.5 text-xs tracking-[0.25em] font-medium text-primary-foreground bg-primary">
+              {section.number}
+            </div>
           </div>
         </div>
       </div>
 
       <div className={`lg:col-span-6 flex flex-col ${imageLeft ? "lg:order-2" : "lg:order-1"}`}>
-        <p className="eyebrow text-primary mb-4">{section.eyebrow}</p>
-        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl leading-[1.15] text-foreground">
+        <p
+          className={`eyebrow text-primary mb-4 transition-all duration-700 ease-out ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+        >
+          {section.eyebrow}
+        </p>
+        <h2
+          className={`font-display text-3xl md:text-4xl lg:text-5xl leading-[1.15] text-foreground transition-all duration-700 ease-out ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+          style={{ transitionDelay: visible ? "80ms" : "0ms" }}
+        >
           {section.title}
         </h2>
-        <div className="h-px w-16 my-6 bg-primary" />
-        <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
+        <div
+          className={`h-px w-16 my-6 bg-primary origin-left transition-transform duration-700 ease-out ${
+            visible ? "scale-x-100" : "scale-x-0"
+          }`}
+          style={{ transitionDelay: visible ? "180ms" : "0ms" }}
+        />
+        <p
+          className={`text-base md:text-lg leading-relaxed text-muted-foreground transition-all duration-700 ease-out ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{ transitionDelay: visible ? "240ms" : "0ms" }}
+        >
           {section.description}
         </p>
 
-        <div className="mt-8 grid sm:grid-cols-2 gap-4">
-          {section.cards.map((c) => (
+        <div className="mt-8 grid sm:grid-cols-2 gap-5 auto-rows-fr">
+          {section.cards.map((c, i) => (
             <div
               key={c.title}
-              className="rounded-sm border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.2)]"
+              className={`h-full flex flex-col rounded-sm border border-border bg-card p-6 transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.22)] ${
+                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
+              style={{ transitionDelay: visible ? `${340 + i * 90}ms` : "0ms" }}
             >
               <h3 className="font-display text-lg text-foreground leading-snug">{c.title}</h3>
               <div className="h-px w-8 my-3 bg-primary" />
@@ -196,7 +224,10 @@ function SectionBlock({ section, index }: { section: Section; index: number }) {
 
         <Link
           to={`/programs/${section.slug}`}
-          className="btn-donate mt-10 self-start"
+          className={`btn-donate mt-10 self-start transition-all duration-700 ease-out ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+          style={{ transitionDelay: visible ? `${380 + section.cards.length * 90}ms` : "0ms" }}
         >
           Learn More
         </Link>
